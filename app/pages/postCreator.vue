@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import Buttons from "~/components/buttons.vue";
+import inputs from "~/components/inputs.vue";
+import {reactive} from "vue";
 
 function createPost() {
-  console.log("createPost");
-  localStorage.setItem("n1", "Texto de ejemplo");
+  localStorage.setItem("post", JSON.stringify(form))
+  console.log("Post guardado:", form)
 }
+
+const form = reactive({
+  titulo: "",
+  fecha: "",
+  cuerpo: ""
+})
 
 </script>
 <template>
@@ -19,42 +27,42 @@ function createPost() {
 
     </div>
 
-    <div class="w-full flex justify-center gap-10 "> <!-- Botones -->
-
-      <nuxt-link>
-        <buttons
-            @click="createPost"
-            buttonName="Publicar"
+    <div class=" w-[50%]   "> <!-- Campos nuevo post -->
+      <form class="flex flex-col  w-full" id="formPost">
+        <div class="w-full flex justify-center gap-10 "> <!-- Botones -->
+          <nuxt-link>
+            <buttons
+                @click="createPost"
+                buttonName="Publicar"
+            />
+          </nuxt-link>
+          <nuxt-link to="/">
+            <buttons
+                buttonName="Cancelar"
+            />
+          </nuxt-link>
+        </div>
+        <inputs
+            text-label="Titulo"
+            v-model="form.titulo"
         />
-      </nuxt-link>
-      <nuxt-link to="/">
-        <buttons
-            buttonName="Cancelar"
+        <Inputs
+            text-label="Fecha"
+            type-input="date"
+            v-model="form.fecha"
         />
-      </nuxt-link>
 
-
-    </div>
-    <div class=" w-[50%] flex flex-col justify-center "> <!-- Campos nuevo post -->
-
-      <inputs
-          text-label="Titulo"
-      />
-      <Inputs
-      text-label="Fecha"
-      type-input="date"
-      />
-
-      <text-area
-      text-label="Cuerpo de la publicacion"
-      />
-
-      <inputs
-      text-label="Imagen de la publicacion"
-      type-input="file"
-      />
-
-
+        <text-area
+            text-label="Cuerpo de la publicacion"
+            v-model="form.cuerpo"
+        />
+        <!--
+        <inputs
+            text-label="Imagen de la publicacion"
+            type-input="file
+        />
+        -->
+      </form>
     </div>
 
   </div>
