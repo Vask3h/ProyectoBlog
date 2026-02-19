@@ -4,14 +4,15 @@ import inputs from "~/components/inputs.vue";
 import {reactive} from "vue";
 
 function createPost() {
-  localStorage.setItem("post", JSON.stringify(form))
+  const id = crypto.randomUUID();
+  localStorage.setItem(id, JSON.stringify(form))
   console.log("Post guardado:", form)
 }
 
 const form = reactive({
   titulo: "",
   fecha: "",
-  cuerpo: ""
+  cuerpo: "",
 })
 
 </script>
@@ -27,7 +28,7 @@ const form = reactive({
 
     </div>
 
-    <div class=" w-[50%]   "> <!-- Campos nuevo post -->
+    <div class=" w-[50%]"> <!-- Campos nuevo post -->
       <form class="flex flex-col  w-full" id="formPost">
         <div class="w-full flex justify-center gap-10 "> <!-- Botones -->
           <nuxt-link>
