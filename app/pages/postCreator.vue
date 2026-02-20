@@ -23,6 +23,7 @@ const form = reactive({
   titulo: "",
   fecha: "",
   cuerpo: "",
+  linkImagen:"",
 })
 
 </script>
@@ -61,6 +62,11 @@ const form = reactive({
             text-label="Fecha"
             type-input="date"
             v-model="form.fecha"
+        />
+
+        <Inputs
+          text-label="Imagen"
+          v-model="form.linkImagen"
         />
 
         <text-area
