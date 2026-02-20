@@ -3,10 +3,20 @@ import Buttons from "~/components/buttons.vue";
 import inputs from "~/components/inputs.vue";
 import {reactive} from "vue";
 
+let posts = [];
+
 function createPost() {
-  const id = crypto.randomUUID();
-  localStorage.setItem(id, JSON.stringify(form))
-  console.log("Post guardado:", form)
+  // id = crypto.randomUUID();
+
+  // posts.push({form});
+  const data = localStorage.getItem("blogs");
+  {
+    if (data != null) {
+      posts = JSON.parse(data)
+    }
+  }
+  posts.push(form);
+  localStorage.setItem("blogs", JSON.stringify(posts));
 }
 
 const form = reactive({

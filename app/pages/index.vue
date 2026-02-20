@@ -20,5 +20,14 @@ import Buttons from "~/components/buttons.vue";
       </nuxt-link>
     </div>
 
+    <div class="grid grid-cols-3 gap-4 bg-red-800 align-items-center m-10"> <!-- Publicaciones -->
+      <post/>
+      <post/>
+      <post/>
+      <post/>
+
+
+    </div>
+
   </div>
 </template>
