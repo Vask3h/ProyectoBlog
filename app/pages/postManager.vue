@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import Buttons from "~/components/buttons.vue";
+let posts = [];
+
+function getPosts() {
+  const data = localStorage.getItem("blogs");
+  posts = JSON.parse(data)
+}
+
+onMounted(getPosts);
 </script>
 <template>
 
@@ -25,6 +33,17 @@ import Buttons from "~/components/buttons.vue";
       </nuxt-link>
 
     </div>
+    <div class="grid grid-cols-3 gap-10  align-items-center m-10"> <!-- Publicaciones -->
 
+      <post
+          v-for="post in posts"
+          :key="post.id"
+          :title="post.titulo"
+          :date="post.fecha"
+          :body="post.cuerpo"
+          :imagelink="post.linkImagen"
+      />
+
+    </div>
   </div>
 </template>

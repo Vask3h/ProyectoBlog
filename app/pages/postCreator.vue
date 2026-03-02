@@ -5,8 +5,9 @@ import {reactive} from "vue";
 
 let posts = [];
 
+let aleatorio = crypto.randomUUID();;
+
 function createPost() {
-  // id = crypto.randomUUID();
 
   // posts.push({form});
   const data = localStorage.getItem("blogs");
@@ -23,7 +24,8 @@ const form = reactive({
   titulo: "",
   fecha: "",
   cuerpo: "",
-  linkImagen:"",
+  linkImagen: "",
+  id: aleatorio
 })
 
 </script>
@@ -65,8 +67,8 @@ const form = reactive({
         />
 
         <Inputs
-          text-label="Imagen"
-          v-model="form.linkImagen"
+            text-label="Imagen"
+            v-model="form.linkImagen"
         />
 
         <text-area

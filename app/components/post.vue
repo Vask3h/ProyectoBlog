@@ -17,7 +17,8 @@ export default {
     },
     imageLink:{
       type: String,
-      required: false
+      required: false,
+      default:"https://imgs.search.brave.com/pWx_fibLVReehrRhQMrIqqBxxAbPneYaaprxcABIfPU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMjAy/MjI2MjU0L3N0b2Nr/LXBob3RvLXRleHQt/c2lnbi1zaG93aW5n/LWV4YW1wbGUtY29u/Y2VwdHVhbC1waG90/by1pbGx1c3RyYXRp/b24tc2FtcGxlLW1v/ZGVsLWZvbGxvdw"
     }
   },
 
