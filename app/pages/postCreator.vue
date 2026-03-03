@@ -75,12 +75,6 @@ const form = reactive({
             text-label="Cuerpo de la publicacion"
             v-model="form.cuerpo"
         />
-        <!--
-        <inputs
-            text-label="Imagen de la publicacion"
-            type-input="file
-        />
-        -->
       </form>
     </div>
 

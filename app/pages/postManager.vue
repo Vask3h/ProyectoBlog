@@ -8,12 +8,6 @@ function getPosts() {
   posts = JSON.parse(data)
 }
 
-function deletePost(id) {
-  posts.value = posts.value.filter(post => post.id !== id)
-
-  localStorage.setItem("blogs", JSON.stringify(posts.value))
-}
-
 onMounted(getPosts);
 </script>
 <template>
@@ -49,10 +43,9 @@ onMounted(getPosts);
             :date="post.fecha"
             :body="post.cuerpo"
             :imagelink="post.linkImagen"
+            :post-manager = true
         />
-        <buttons
-        buttonName="Eliminar"
-        />
+
       </div>
     </div>
 
