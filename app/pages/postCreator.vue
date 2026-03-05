@@ -10,7 +10,7 @@ let aleatorio = crypto.randomUUID();;
 function createPost() {
 
   // posts.push({form});
-  const data = localStorage.getItem("blogs");
+  const data = localStorage.getItem("blogs");0
   {
     if (data != null) {
       posts = JSON.parse(data)

@@ -8,7 +8,8 @@ function getPosts() {
   posts = JSON.parse(data)
 }
 
-onMounted(getPosts);
+
+onBeforeMount(getPosts);
 </script>
 <template>
 
