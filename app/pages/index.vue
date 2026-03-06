@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import Buttons from "~/components/buttons.vue";
 
-let posts = [];
+import { usePosts } from "~/composables/usePosts"
 
-function getPosts() {
-  const data = localStorage.getItem("blogs");
-  posts = JSON.parse(data)
-}
+const { posts, loadPosts, deletePost } = usePosts()
 
+onMounted(loadPosts)
 
-onBeforeMount(getPosts);
 </script>
 <template>
 
@@ -31,17 +27,22 @@ onBeforeMount(getPosts);
 
     </div>
 
-    <div class="grid grid-cols-3 gap-10  align-items-center m-10 "> <!-- Publicaciones -->
-      <div v-for="post in posts" :key="post.id" class="border rounded p-2" >
+    <div class="grid grid-cols-3 gap-10 m-10">
+
+      <div v-for="post in posts" :key="post.id">
+
         <post
-            :key="post.id"
+            :id="post.id"
             :title="post.titulo"
             :date="post.fecha"
             :body="post.cuerpo"
-            :imagelink="post.linkImagen"
+            :imageLink="post.linkImagen"
+            :postManager="true"
+            @delete="deletePost"
         />
 
       </div>
+
     </div>
 
   </div>

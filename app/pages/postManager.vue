@@ -7,6 +7,12 @@ function getPosts() {
   const data = localStorage.getItem("blogs");
   posts = JSON.parse(data)
 }
+function deletePost(id) {
+  getPosts()
+  posts.value = posts.value.filter(post => post.id !== id)
+  localStorage.setItem("blogs", JSON.stringify(posts));
+  console.log(posts);
+}
 
 
 onBeforeMount(getPosts);
@@ -38,14 +44,15 @@ onBeforeMount(getPosts);
     </div>
 
     <div class="grid grid-cols-3 gap-10  align-items-center m-10 "> <!-- Publicaciones -->
-      <div v-for="post in posts" :key="post.id" class="border rounded p-2" >
+      <div v-for="post in posts" :key="post.id" class="border rounded p-2 " >
         <post
-            :key="post.id"
+            :id = "post.id"
             :title="post.titulo"
             :date="post.fecha"
             :body="post.cuerpo"
             :imagelink="post.linkImagen"
             :post-manager = true
+            @delete="deletePost"
         />
 
       </div>
