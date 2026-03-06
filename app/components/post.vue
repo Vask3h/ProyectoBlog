@@ -26,12 +26,21 @@ export default {
     <h2 class="font-bold text-xl">{{ title }}</h2>
     <p>{{ date }}</p>
     <p>{{ body }}</p>
+<div class="flex gap-5" >
+  <buttons
+      v-if="postManager"
+      buttonName="Eliminar"
+      @click="$emit('delete', id)"
+  />
 
-    <buttons
-        v-if="postManager"
-        buttonName="Eliminar"
-        @click="$emit('delete', id)"
-    />
+  <NuxtLink
+      v-if="postManager"
+      :to="`/postEditor?id=${id}`"
+  >
+    <Buttons buttonName="Editar"/>
+  </NuxtLink>
+</div>
+
 
   </div>
 

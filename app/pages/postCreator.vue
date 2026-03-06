@@ -1,32 +1,20 @@
 <script setup lang="ts">
-import Buttons from "~/components/buttons.vue";
-import inputs from "~/components/inputs.vue";
-import {reactive} from "vue";
 
-let posts = [];
+import { reactive } from "vue"
+import { usePosts } from "~/composables/usePosts"
 
-let aleatorio = crypto.randomUUID();;
-
-function createPost() {
-
-  // posts.push({form});
-  const data = localStorage.getItem("blogs");0
-  {
-    if (data != null) {
-      posts = JSON.parse(data)
-    }
-  }
-  posts.push(form);
-  localStorage.setItem("blogs", JSON.stringify(posts));
-}
+const { createPost } = usePosts()
 
 const form = reactive({
   titulo: "",
   fecha: "",
   cuerpo: "",
-  linkImagen: "",
-  id: aleatorio
+  linkImagen: ""
 })
+
+function publishPost() {
+  createPost(form)
+}
 
 </script>
 <template>
@@ -46,8 +34,8 @@ const form = reactive({
         <div class="w-full flex justify-center gap-10 "> <!-- Botones -->
           <nuxt-link>
             <buttons
-                @click="createPost"
                 buttonName="Publicar"
+                @click="publishPost"
             />
           </nuxt-link>
           <nuxt-link to="/">

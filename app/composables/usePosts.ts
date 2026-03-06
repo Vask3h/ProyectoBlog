@@ -32,11 +32,21 @@ export function usePosts() {
 
         savePosts()
     }
+    function updatePost(updatedPost:any) {
 
+        const index = posts.value.findIndex(post => post.id === updatedPost.id)
+
+        if (index !== -1) {
+            posts.value[index] = updatedPost
+        }
+
+        savePosts()
+    }
     return {
         posts,
         loadPosts,
         createPost,
-        deletePost
+        deletePost,
+        updatePost
     }
 }
