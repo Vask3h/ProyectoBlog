@@ -11,7 +11,23 @@ export default {
     id: String
   },
 
-  emits: ["delete"]
+  emits: ["delete"],
+
+  methods: {
+
+    formatSpanishDate(dateString) {
+
+      const date = new Date(dateString)
+
+      return date.toLocaleDateString("es-ES", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      })
+
+    }
+
+  }
 
 }
 
@@ -24,22 +40,22 @@ export default {
     <nuxt-img :src="imageLink"/>
 
     <h2 class="font-bold text-xl">{{ title }}</h2>
-    <p>{{ date }}</p>
-    <p class="truncate" >{{ body }}</p>
-<div class="flex gap-5" >
-  <buttons
-      v-if="postManager"
-      buttonName="Eliminar"
-      @click="$emit('delete', id)"
-  />
+    <p>{{ formatSpanishDate(date) }}</p>
+    <p class="truncate">{{ body }}</p>
+    <div class="flex gap-5">
+      <buttons
+          v-if="postManager"
+          buttonName="Eliminar"
+          @click="$emit('delete', id)"
+      />
 
-  <NuxtLink
-      v-if="postManager"
-      :to="`/postEditor?id=${id}`"
-  >
-    <Buttons buttonName="Editar"/>
-  </NuxtLink>
-</div>
+      <NuxtLink
+          v-if="postManager"
+          :to="`/postEditor?id=${id}`"
+      >
+        <Buttons buttonName="Editar"/>
+      </NuxtLink>
+    </div>
 
 
   </div>

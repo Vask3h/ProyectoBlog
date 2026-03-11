@@ -9,8 +9,8 @@ onMounted(loadPosts)
 </script>
 <template>
 
-  <div class="w-screen h-screen bg-gray-800 text-white  p-4 "> <!-- Contenedor principal pantalla completa -->
-    <div class="w-full flex justify-center "> <!-- Titulo -->
+  <div class=" min-h-screen bg-gray-800 text-white  p-4 "> <!-- Contenedor principal pantalla completa -->
+    <div class=" flex justify-center "> <!-- Titulo -->
 
       <h1 class=" h-20 font-bold text-transparent bg-clip-text text-6xl  bg-gradient-to-r from-purple-400 to-pink-600  align-middle ">
         Gestor de publicaciones

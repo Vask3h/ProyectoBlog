@@ -5,9 +5,20 @@ import { usePosts } from "~/composables/usePosts"
 
 const { createPost } = usePosts()
 
+function getTodayInputDate() {
+
+  const today = new Date()
+
+  const year = today.getFullYear()
+  const month = String(today.getMonth() + 1).padStart(2, "0")
+  const day = String(today.getDate()).padStart(2, "0")
+
+  return `${year}-${month}-${day}`
+}
+
 const form = reactive({
   titulo: "",
-  fecha: "",
+  fecha: getTodayInputDate(),
   cuerpo: "",
   linkImagen: ""
 })
@@ -15,6 +26,8 @@ const form = reactive({
 function publishPost() {
   createPost(form)
 }
+
+
 
 </script>
 <template>
