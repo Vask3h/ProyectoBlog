@@ -29,10 +29,10 @@ function publishPost() {
 
     </div>
 
-    <div class=" w-[50%]"> <!-- Campos nuevo post -->
+    <div class=" w-[50%]">
       <form class="flex flex-col  w-full" id="formPost">
-        <div class="w-full flex justify-center gap-10 "> <!-- Botones -->
-          <nuxt-link>
+        <div class="w-full flex justify-center gap-10 ">
+          <nuxt-link to="/">
             <buttons
                 buttonName="Publicar"
                 @click="publishPost"

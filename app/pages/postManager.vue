@@ -1,21 +1,10 @@
 <script setup lang="ts">
-import Buttons from "~/components/buttons.vue";
 
-let posts: any[] = [];
+import { usePosts } from "~/composables/usePosts"
 
-function getPosts() {
-  const data = localStorage.getItem("blogs");
-  posts = JSON.parse(data)
-}
-function deletePost(id) {
-  getPosts()
-  posts.value = posts.value.filter(post => post.id !== id)
-  localStorage.setItem("blogs", JSON.stringify(posts));
-  console.log(posts);
-}
+const { posts, loadPosts, deletePost } = usePosts()
 
-
-onBeforeMount(getPosts);
+onMounted(loadPosts)
 
 </script>
 <template>
@@ -50,7 +39,7 @@ onBeforeMount(getPosts);
             :title="post.titulo"
             :date="post.fecha"
             :body="post.cuerpo"
-            :imagelink="post.linkImagen"
+            :imageLink="post.linkImagen"
             :post-manager = true
             @delete="deletePost"
         />

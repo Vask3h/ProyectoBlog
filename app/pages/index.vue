@@ -29,7 +29,7 @@ onMounted(loadPosts)
 
     <div class="grid grid-cols-3 gap-10 m-10">
 
-      <div v-for="post in posts" :key="post.id">
+      <div v-for="post in posts" :key="post.id" class="border rounded p-2" >
 
         <post
             :id="post.id"
@@ -37,7 +37,7 @@ onMounted(loadPosts)
             :date="post.fecha"
             :body="post.cuerpo"
             :imageLink="post.linkImagen"
-            :postManager="true"
+            :postManager="false"
             @delete="deletePost"
         />
 

@@ -51,11 +51,11 @@ function saveEdit() {
 
   <div class="w-screen h-screen bg-gray-800 text-white flex flex-col items-center p-4">
 
-    <h1 class="text-6xl font-bold mb-10">
-      Editar Publicación
+    <h1 class=" h-20 font-bold text-transparent bg-clip-text text-6xl  bg-gradient-to-r from-purple-400 to-pink-600  align-middle ">
+      -- Editar publicacion --
     </h1>
 
-    <div class="w-[50%] flex flex-col gap-4">
+    <div class="w-[50%] flex flex-col gap-1">
 
       <Inputs
           text-label="Titulo"
