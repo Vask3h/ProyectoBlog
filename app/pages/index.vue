@@ -39,6 +39,7 @@ onMounted(loadPosts)
               :imageLink="post.linkImagen"
               :postManager="false"
           />
+          
         </NuxtLink>
       </div>
 
