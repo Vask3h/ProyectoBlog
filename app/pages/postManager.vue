@@ -18,7 +18,7 @@ onMounted(loadPosts)
 
     </div>
 
-    <div class="w-full flex justify-center gap-5 ">
+    <div class="w-full flex justify-center gap-5 p-2 ">
       <nuxt-link to="/">
         <buttons
             buttonName="Volver al Blog"
@@ -32,8 +32,9 @@ onMounted(loadPosts)
 
     </div>
 
-    <div class="grid grid-cols-3 gap-10  align-items-center m-10 "> <!-- Publicaciones -->
-      <div v-for="post in posts" :key="post.id" class="border rounded p-2 " >
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 ">
+
+    <div v-for="post in posts" :key="post.id" class=" rounded p-2 " >
         <post
             :id = "post.id"
             :title="post.titulo"

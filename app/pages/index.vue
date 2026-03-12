@@ -10,15 +10,16 @@ onMounted(loadPosts)
 <template>
 
   <div class=" min-h-screen  bg-gray-800 text-white p-4 "> <!-- Contenedor principal pantalla completa -->
-    <div class="w-full flex justify-center "> <!-- Titulo -->
+    <div class="font-bold text-transparent bg-clip-text
+             text-3xl sm:text-4xl md:text-5xl lg:text-6xl
+             bg-gradient-to-r from-purple-400 to-pink-600
+             text-center"> <!-- Titulo -->
 
-      <h1 class=" h-20 font-bold text-transparent bg-clip-text text-6xl  bg-gradient-to-r from-purple-400 to-pink-600  align-middle ">
         Blog Bloguistico
-      </h1>
 
     </div>
 
-    <div class="w-full flex justify-center gap-10 ">
+    <div class="w-full flex justify-center gap-10 p-2 ">
       <nuxt-link to="postManager">
         <buttons
             buttonName="Gestor de Publicaciones"
@@ -27,9 +28,9 @@ onMounted(loadPosts)
 
     </div>
 
-    <div class="grid grid-cols-3 gap-10 m-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
-      <div v-for="post in posts" :key="post.id" class="border rounded p-2">
+      <div v-for="post in posts" :key="post.id" class=" rounded p-2">
         <NuxtLink :to="`/post/${post.id}`">
           <post
               :id="post.id"
@@ -39,7 +40,7 @@ onMounted(loadPosts)
               :imageLink="post.linkImagen"
               :postManager="false"
           />
-          
+
         </NuxtLink>
       </div>
 

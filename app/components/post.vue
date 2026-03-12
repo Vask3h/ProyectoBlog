@@ -35,13 +35,18 @@ export default {
 
 <template>
 
-  <div class="flex flex-col truncate">
+  <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg
+            flex flex-col
+            h-[380px] sm:h-[400px] lg:h-[420px]
+            hover:scale-105 transition duration-300">
 
-    <nuxt-img :src="imageLink"/>
+  <div class="w-full h-40 sm:h-44 lg:h-48 overflow-hidden" >
+    <nuxt-img  class="w-full h-full object-cover" :src="imageLink"/>
+  </div>
 
     <h2 class="font-bold text-xl">{{ title }}</h2>
     <p>{{ formatSpanishDate(date) }}</p>
-    <p class="truncate">{{ body }}</p>
+    <p class="line-clamp-5">{{ body }}</p>
     <div class="flex gap-5">
       <buttons
           v-if="postManager"
