@@ -13,6 +13,17 @@ loadPosts()
 const post = computed(() => {
   return posts.value.find(p => p.id === route.params.id)
 })
+function formatSpanishDate(dateString){
+
+  const date = new Date(dateString)
+
+  return date.toLocaleDateString("es-ES",{
+    day:"numeric",
+    month:"long",
+    year:"numeric"
+  })
+
+}
 
 </script>
 
@@ -50,7 +61,7 @@ const post = computed(() => {
         </h1>
 
         <p class="text-gray-400 text-sm">
-          Publicado el {{ post.fecha }}
+          {{ formatSpanishDate(post.fecha) }}
         </p>
 
         <div class="w-full h-[1px] bg-gray-700"></div>
