@@ -35,19 +35,21 @@ export default {
 
 <template>
 
-  <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg
+  <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg
             flex flex-col
             h-[380px] sm:h-[400px] lg:h-[420px]
             hover:scale-105 transition duration-300">
 
-  <div class="w-full h-40 sm:h-44 lg:h-48 overflow-hidden" >
-    <nuxt-img  class="w-full h-full object-cover" :src="imageLink"/>
-  </div>
+    <div class="w-full h-40 sm:h-44 lg:h-48 overflow-hidden">
+      <nuxt-img class="w-full h-full object-cover" :src="imageLink"/>
+    </div>
+    <div class="p-1" >
+      <h2 class="font-bold text-xl line-clamp-2">{{ title }}</h2>
+      <p class="text-xs text-gray-400 uppercase tracking-wide my-1" >{{ formatSpanishDate(date) }}</p>
+      <p class="line-clamp-4">{{ body }}</p>
+    </div>
 
-    <h2 class="font-bold text-xl">{{ title }}</h2>
-    <p>{{ formatSpanishDate(date) }}</p>
-    <p class="line-clamp-5">{{ body }}</p>
-    <div class="flex gap-5">
+    <div class="flex gap-5 p-1">
       <buttons
           v-if="postManager"
           buttonName="Eliminar"
