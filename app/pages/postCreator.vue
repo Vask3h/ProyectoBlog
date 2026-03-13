@@ -27,6 +27,21 @@ function publishPost() {
   createPost(form)
 }
 
+function handleImage(event) {
+
+  const file = event.target.files[0]
+
+  if (!file) return
+
+  const reader = new FileReader()
+
+  reader.onload = (e) => {
+    form.linkImagen = e.target.result
+  }
+
+  reader.readAsDataURL(file)
+
+}
 
 
 </script>
@@ -67,10 +82,18 @@ function publishPost() {
             v-model="form.fecha"
         />
 
-        <Inputs
-            text-label="Imagen"
-            v-model="form.linkImagen"
+        <input
+            type="file"
+            accept="image/*"
+            @change="handleImage"
+            class="border-4 border-emerald-200 bg-emerald-200 rounded-lg text-black mt-7"
         />
+        <div v-if="form.linkImagen" class="mt-4">
+          <img
+              :src="form.linkImagen"
+              class="w-full h-60 object-cover rounded-lg"
+          />
+        </div>
 
         <text-area
             text-label="Cuerpo de la publicacion"

@@ -38,7 +38,28 @@ onMounted(() => {
 
 })
 
-function saveEdit() {
+function handleImage(event:any){
+
+  const file = event.target.files[0]
+
+  if(!file) return
+
+  const reader = new FileReader()
+
+  reader.onload = (e:any)=>{
+    form.linkImagen = e.target.result
+  }
+
+  reader.readAsDataURL(file)
+
+}
+
+function saveEdit(){
+
+  if(!form.titulo.trim() || !form.cuerpo.trim()){
+    alert("El título y el contenido no pueden estar vacíos")
+    return
+  }
 
   updatePost({ ...form })
 
@@ -68,10 +89,18 @@ function saveEdit() {
           v-model="form.fecha"
       />
 
-      <Inputs
-          text-label="Imagen"
-          v-model="form.linkImagen"
+      <input
+          type="file"
+          accept="image/*"
+          @change="handleImage"
+          class="border-4 border-emerald-200 bg-emerald-200 rounded-lg text-black mt-7"
       />
+      <div v-if="form.linkImagen" class="mt-4">
+        <img
+            :src="form.linkImagen"
+            class="w-full h-60 object-cover rounded-lg"
+        />
+      </div>
 
       <text-area
           text-label="Contenido"

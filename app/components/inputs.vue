@@ -22,15 +22,15 @@ export default {
 }
 </script>
 <template>
-<div class="flex flex-col  w-full" >
-  <label class="text-white mt-3 ">{{ textLabel }}</label>
-  <input
-      :value="modelValue"
-      :placeholder="textPlaceholder"
-      :type="typeInput"
-      @input="$emit('update:modelValue', $event.target.value)"
+  <div class="flex flex-col  w-full">
+    <label class="text-white mt-3 ">{{ textLabel }}</label>
+    <input
+        :value="modelValue"
+        :placeholder="textPlaceholder"
+        :type="typeInput"
+        @input="$emit('update:modelValue', $event.target.value)"
+        class="border border-4 border-emerald-200 bg-emerald-200 outline-none focus-within:border-emerald-500 rounded-lg text-black">
 
-      class="border border-4 border-emerald-200 bg-emerald-200 outline-none focus-within:border-emerald-500 rounded-lg text-black">
 
-</div>
+  </div>
 </template>
