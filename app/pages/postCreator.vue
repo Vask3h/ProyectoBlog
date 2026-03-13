@@ -2,7 +2,9 @@
 
 import {reactive} from "vue"
 import {usePosts} from "~/composables/usePosts"
+import {useRouter} from "vue-router"
 
+const router = useRouter()
 const {createPost} = usePosts()
 
 function getTodayInputDate() {
@@ -23,7 +25,8 @@ const form = reactive({
   linkImagen: ""
 })
 
-function publishPost() {
+async function publishPost() {
+
 
   if (!form.titulo.trim() || !form.cuerpo.trim()) {
     alert("El título y el contenido no pueden estar vacíos")
@@ -40,12 +43,23 @@ function publishPost() {
     return
   }
 
+
   if (form.imageUrl) {
     form.linkImagen = form.imageUrl
   }
 
-  createPost(form)
+  try {
+    await createPost(form)
 
+    alert("Post creado exitosamente")
+
+
+    router.push("/")
+
+  } catch (error) {
+    console.error(error)
+    alert("Error al crear el post")
+  }
 }
 
 function handleImage(event: any) {
@@ -80,14 +94,14 @@ function handleImage(event: any) {
     </div>
 
     <div class=" w-[50%]">
-      <form class="flex flex-col  w-full" id="formPost">
+      <form class="flex flex-col  w-full" id="formPost" @submit.prevent>
         <div class="w-full flex justify-center gap-10 ">
-          <nuxt-link to="/">
-            <buttons
-                buttonName="Publicar"
-                @click="publishPost"
-            />
-          </nuxt-link>
+
+          <buttons
+              buttonName="Publicar"
+              @click="publishPost"
+          />
+
           <nuxt-link to="/">
             <buttons
                 buttonName="Cancelar"
