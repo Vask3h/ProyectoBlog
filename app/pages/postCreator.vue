@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
-import { reactive } from "vue"
-import { usePosts } from "~/composables/usePosts"
+import {reactive} from "vue"
+import {usePosts} from "~/composables/usePosts"
 
-const { createPost } = usePosts()
+const {createPost} = usePosts()
 
 function getTodayInputDate() {
 
@@ -24,10 +24,31 @@ const form = reactive({
 })
 
 function publishPost() {
+
+  if (!form.titulo.trim() || !form.cuerpo.trim()) {
+    alert("El título y el contenido no pueden estar vacíos")
+    return
+  }
+
+  if (!form.linkImagen && !form.imageUrl) {
+    alert("Debes subir una imagen o introducir una URL")
+    return
+  }
+
+  if (form.linkImagen && form.imageUrl) {
+    alert("Solo puedes usar una opción: archivo o URL")
+    return
+  }
+
+  if (form.imageUrl) {
+    form.linkImagen = form.imageUrl
+  }
+
   createPost(form)
+
 }
 
-function handleImage(event) {
+function handleImage(event: any) {
 
   const file = event.target.files[0]
 
@@ -35,8 +56,9 @@ function handleImage(event) {
 
   const reader = new FileReader()
 
-  reader.onload = (e) => {
+  reader.onload = (e: any) => {
     form.linkImagen = e.target.result
+    form.imageUrl = ""
   }
 
   reader.readAsDataURL(file)
@@ -88,12 +110,20 @@ function handleImage(event) {
             @change="handleImage"
             class="border-4 border-emerald-200 bg-emerald-200 rounded-lg text-black mt-7"
         />
-        <div v-if="form.linkImagen" class="mt-4">
+
+        <Inputs
+            text-label="URL de la imagen"
+            text-placeholder="https://ejemplo.com/imagen.jpg"
+            v-model="form.imageUrl"
+        />
+
+        <div v-if="form.linkImagen || form.imageUrl" class="mt-4">
           <img
-              :src="form.linkImagen"
+              :src="form.linkImagen || form.imageUrl"
               class="w-full h-60 object-cover rounded-lg"
           />
         </div>
+
 
         <text-area
             text-label="Cuerpo de la publicacion"
