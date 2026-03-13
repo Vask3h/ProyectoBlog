@@ -28,7 +28,7 @@ onMounted(loadPosts)
 
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div class="flex flex-wrap justify-center items-stretch gap-6 p-6">
 
       <div v-for="post in posts" :key="post.id" class=" rounded p-2">
         <NuxtLink :to="`/post/${post.id}`">
