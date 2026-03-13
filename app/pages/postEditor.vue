@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
-import { reactive, onMounted } from "vue"
-import { useRoute, useRouter } from "vue-router"
-import { usePosts } from "~/composables/usePosts"
+import {reactive, onMounted} from "vue"
+import {useRoute, useRouter} from "vue-router"
+import {usePosts} from "~/composables/usePosts"
 
 import Buttons from "~/components/buttons.vue"
 import Inputs from "~/components/inputs.vue"
@@ -10,14 +10,15 @@ import Inputs from "~/components/inputs.vue"
 const route = useRoute()
 const router = useRouter()
 
-const { posts, loadPosts, updatePost } = usePosts()
+const {posts, loadPosts, updatePost} = usePosts()
 
 const form = reactive({
   id: "",
   titulo: "",
   fecha: "",
   cuerpo: "",
-  linkImagen: ""
+  linkImagen: "",
+  imageUrl: ""
 })
 
 onMounted(() => {
@@ -33,38 +34,48 @@ onMounted(() => {
     form.titulo = post.titulo
     form.fecha = post.fecha
     form.cuerpo = post.cuerpo
-    form.linkImagen = post.linkImagen
+
+    if (post.linkImagen?.startsWith("data:image")) {
+      form.linkImagen = post.linkImagen
+      form.imageUrl = ""
+    } else {
+      form.imageUrl = post.linkImagen
+      form.linkImagen = ""
+    }
   }
 
 })
 
-function handleImage(event:any){
+function handleImage(event: any) {
 
   const file = event.target.files[0]
-
-  if(!file) return
+  if (!file) return
 
   const reader = new FileReader()
 
-  reader.onload = (e:any)=>{
+  reader.onload = (e: any) => {
     form.linkImagen = e.target.result
+    form.imageUrl = ""
   }
 
   reader.readAsDataURL(file)
-
 }
 
-function saveEdit(){
+async function saveEdit() {
 
-  if(!form.titulo.trim() || !form.cuerpo.trim()){
+  if (!form.titulo.trim() || !form.cuerpo.trim()) {
     alert("El título y el contenido no pueden estar vacíos")
     return
   }
 
-  updatePost({ ...form })
+  const updatedPost = {
+    ...form,
+    linkImagen: form.imageUrl || form.linkImagen
+  }
+
+  await updatePost(updatedPost)
 
   router.push("/postManager")
-
 }
 
 </script>
@@ -100,9 +111,14 @@ function saveEdit(){
           @change="handleImage"
           class="border-4 border-emerald-200 bg-emerald-200 rounded-lg text-black mt-7"
       />
+      <Inputs
+          text-label="URL de la imagen"
+          text-placeholder="https://ejemplo.com/imagen.jpg"
+          v-model="form.imageUrl"
+      />
       <div v-if="form.linkImagen" class="mt-4">
         <img
-            :src="form.linkImagen"
+            :src="form.imageUrl || form.linkImagen"
             class="w-full h-60 object-cover rounded-lg"
         />
       </div>
