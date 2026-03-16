@@ -87,9 +87,14 @@ function handleImage(event: any) {
     <!-- Contenedor principal pantalla completa -->
     <div class="w-full flex justify-center "> <!-- Titulo -->
 
-      <h1 class=" h-20 font-bold text-transparent bg-clip-text text-6xl  bg-gradient-to-r from-purple-400 to-pink-600  align-middle ">
-        -- Nueva Entrada --
-      </h1>
+      <div class="font-bold text-transparent bg-clip-text
+             text-3xl sm:text-4xl md:text-5xl lg:text-6xl
+             bg-gradient-to-r from-purple-400 to-pink-600
+             text-center"> <!-- Titulo -->
+
+        Nueva entrada
+
+      </div>
 
     </div>
 
