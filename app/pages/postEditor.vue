@@ -81,7 +81,7 @@ async function saveEdit() {
 </script>
 <template>
 
-  <div class="w-screen h-screen bg-gray-800 text-white flex flex-col items-center p-4">
+  <div class= "min-h-screen bg-gray-800 text-white flex flex-col items-center px-4 sm:px-6 lg:px-10 py-6">
 
     <div class="font-bold text-transparent bg-clip-text
              text-3xl sm:text-4xl md:text-5xl lg:text-6xl
@@ -92,7 +92,7 @@ async function saveEdit() {
 
     </div>
 
-    <div class="w-[50%] flex flex-col gap-1">
+    <div class="lg:w-[50%] flex flex-col gap-1">
 
       <Inputs
           text-label="Titulo"

@@ -56,7 +56,7 @@ function formatSpanishDate(dateString){
 
       <div class="p-10 flex flex-col gap-6">
 
-        <h1 class="text-5xl font-bold leading-tight">
+        <h1 class="lg:text-5xl text-2xl  font-bold leading-tight">
           {{ post.titulo }}
         </h1>
 

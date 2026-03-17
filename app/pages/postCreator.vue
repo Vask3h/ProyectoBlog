@@ -99,12 +99,12 @@ function handleImage(event: any) {
 </script>
 <template>
 
-  <div class="w-screen h-screen bg-gray-800 text-white  flex flex-col items-center p-4 ">
+  <div class= "min-h-screen bg-gray-800 text-white flex flex-col items-center px-4 sm:px-6 lg:px-10 py-6">
     <!-- Contenedor principal pantalla completa -->
     <div class="w-full flex justify-center "> <!-- Titulo -->
 
       <div class="font-bold text-transparent bg-clip-text
-             text-3xl sm:text-4xl md:text-5xl lg:text-6xl
+             text-3xl sm:text-5xl md:text-5xl lg:text-6xl
              bg-gradient-to-r from-purple-400 to-pink-600
              text-center"> <!-- Titulo -->
 
@@ -114,7 +114,7 @@ function handleImage(event: any) {
 
     </div>
 
-    <div class=" w-[50%]">
+    <div class=" lg:w-[50%]">
       <form class="flex flex-col  w-full" id="formPost" @submit.prevent>
         <div class="w-full flex justify-center gap-10 ">
 
