@@ -25,6 +25,11 @@ const form = reactive({
   linkImagen: ""
 })
 
+function isValidImageUrl(url: string) {
+  const regex = /^(https?:\/\/.*\.(jpg|jpeg|png|gif|webp))$/i
+  return regex.test(url)
+}
+
 async function publishPost() {
 
 
@@ -45,6 +50,17 @@ async function publishPost() {
 
 
   if (form.imageUrl) {
+
+    if (!isValidUrl(form.imageUrl)) {
+      alert("La URL no es válida")
+      return
+    }
+
+    if (!isImageUrl(form.imageUrl)) {
+      alert("La URL no es una imagen válida")
+      return
+    }
+
     form.linkImagen = form.imageUrl
   }
 
@@ -134,9 +150,10 @@ function handleImage(event: any) {
             text-label="URL de la imagen"
             text-placeholder="https://ejemplo.com/imagen.jpg"
             v-model="form.imageUrl"
+
         />
 
-        <div v-if="form.linkImagen || form.imageUrl" class="mt-4">
+        <div v-if="form.linkImagen || (form.imageUrl && isValidImageUrl(form.imageUrl))" class="mt-4">
           <img
               :src="form.linkImagen || form.imageUrl"
               class="w-full h-60 object-cover rounded-lg"
