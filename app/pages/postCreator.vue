@@ -51,12 +51,12 @@ async function publishPost() {
 
   if (form.imageUrl) {
 
-    if (!isValidUrl(form.imageUrl)) {
+    if (!isValidImageUrl(form.imageUrl)) {
       alert("La URL no es válida")
       return
     }
 
-    if (!isImageUrl(form.imageUrl)) {
+    if (!isValidImageUrl(form.imageUrl)) {
       alert("La URL no es una imagen válida")
       return
     }
