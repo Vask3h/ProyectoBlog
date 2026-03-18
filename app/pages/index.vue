@@ -6,6 +6,8 @@ const {posts, loadPosts, deletePost} = usePosts()
 
 onMounted(loadPosts)
 
+
+
 </script>
 <template>
 
