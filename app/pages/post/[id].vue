@@ -3,6 +3,7 @@
 import { useRoute } from "vue-router"
 import { computed } from "vue"
 import { usePosts } from "~/composables/usePosts"
+import Navbar from "~/components/Navbar.vue";
 
 const route = useRoute()
 
@@ -28,7 +29,7 @@ function formatSpanishDate(dateString){
 </script>
 
 <template>
-
+  <Navbar/>
   <div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-6">
 
     <div class="max-w-4xl mx-auto mb-6">

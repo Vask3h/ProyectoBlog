@@ -3,6 +3,7 @@
 import {reactive} from "vue"
 import {usePosts} from "~/composables/usePosts"
 import {useRouter} from "vue-router"
+import Navbar from "~/components/Navbar.vue";
 
 const router = useRouter()
 const {createPost} = usePosts()
@@ -98,7 +99,7 @@ function handleImage(event: any) {
 
 </script>
 <template>
-
+  <Navbar/>
   <div class= "min-h-screen bg-gray-800 text-white flex flex-col items-center px-4 sm:px-6 lg:px-10 py-6">
     <!-- Contenedor principal pantalla completa -->
     <div class="w-full flex justify-center "> <!-- Titulo -->

@@ -6,6 +6,7 @@ import {usePosts} from "~/composables/usePosts"
 
 import Buttons from "~/components/buttons.vue"
 import Inputs from "~/components/inputs.vue"
+import Navbar from "~/components/Navbar.vue";
 
 const route = useRoute()
 const router = useRouter()
@@ -80,7 +81,7 @@ async function saveEdit() {
 
 </script>
 <template>
-
+  <Navbar/>
   <div class= "min-h-screen bg-gray-800 text-white flex flex-col items-center px-4 sm:px-6 lg:px-10 py-6">
 
     <div class="font-bold text-transparent bg-clip-text
