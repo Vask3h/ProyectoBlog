@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import {usePosts} from "~/composables/usePosts"
+import Navbar from "~/components/Navbar.vue";
 
 const {posts, loadPosts, deletePost} = usePosts()
 
@@ -10,7 +11,7 @@ onMounted(loadPosts)
 
 </script>
 <template>
-
+<Navbar/>
   <div class=" min-h-screen  bg-gray-800 text-white p-4 "> <!-- Contenedor principal pantalla completa -->
     <div class="font-bold text-transparent bg-clip-text
              text-3xl sm:text-4xl md:text-5xl lg:text-6xl
