@@ -1,3 +1,35 @@
+<script setup>
+
+import { ref } from "vue"
+import { useRouter } from "vue-router"
+
+const router = useRouter()
+
+const form = ref({
+  username: "",
+  password: ""
+})
+
+function login() {
+
+  const users = JSON.parse(localStorage.getItem("users")) || []
+
+  const user = users.find(u =>
+      u.username === form.value.username &&
+      u.password === form.value.password
+  )
+
+  if (!user) {
+    alert("Credenciales incorrectas")
+    return
+  }
+
+  localStorage.setItem("currentUser", JSON.stringify(user))
+
+  router.push("/")
+}
+
+</script>
 <template>
 
   <div class="min-h-screen flex items-center justify-center bg-gray-800 text-white px-4">
@@ -25,7 +57,8 @@
 
       <button
           class="w-full bg-emerald-500 hover:bg-emerald-600 transition
-             p-3 rounded-lg font-bold"
+          p-3 rounded-lg font-bold"
+          @click="login"
       >
         Entrar
       </button>

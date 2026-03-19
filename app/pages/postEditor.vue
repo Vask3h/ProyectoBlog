@@ -68,7 +68,6 @@ async function saveEdit() {
     alert("El título y el contenido no pueden estar vacíos")
     return
   }
-
   const updatedPost = {
     ...form,
     linkImagen: form.imageUrl || form.linkImagen
