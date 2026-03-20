@@ -1,6 +1,8 @@
-import { ref } from "vue"
-
+import {ref} from "vue"
+import {useRouter} from "vue-router";
+const router = useRouter()
 const posts = ref<any[]>([])
+const user = ref(null)
 
 export function usePosts() {
 
@@ -16,7 +18,7 @@ export function usePosts() {
         localStorage.setItem("blogs", JSON.stringify(posts.value))
     }
 
-    function createPost(form:any) {
+    function createPost(form: any) {
 
         if (
             !form.titulo.trim() ||
@@ -34,13 +36,14 @@ export function usePosts() {
         savePosts()
     }
 
-    function deletePost(id:string) {
+    function deletePost(id: string) {
 
         posts.value = posts.value.filter(post => post.id !== id)
 
         savePosts()
     }
-    function updatePost(updatedPost:any) {
+
+    function updatePost(updatedPost: any) {
 
         const index = posts.value.findIndex(post => post.id === updatedPost.id)
 
@@ -59,4 +62,18 @@ export function usePosts() {
         updatePost
 
     }
+}
+
+export function checkLogin() {
+    function loguedIn() {
+        const user = localStorage.getItem("currentUser")
+
+        if (!user) {
+            navigateTo("/login")
+        }
+    }
+    return {
+        loguedIn
+    }
+
 }

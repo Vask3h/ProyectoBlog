@@ -2,23 +2,27 @@
 
 import {usePosts} from "~/composables/usePosts"
 import Navbar from "~/components/Navbar.vue";
+import {checkLogin} from "~/composables/usePosts";
 
 const {posts, loadPosts, deletePost} = usePosts()
+const {loguedIn} = checkLogin()
+
 
 onMounted(loadPosts)
 
+onMounted(loguedIn)
 
 
 </script>
 <template>
-<Navbar/>
+  <Navbar/>
   <div class=" min-h-screen  bg-gray-800 text-white p-4 "> <!-- Contenedor principal pantalla completa -->
     <div class="font-bold text-transparent bg-clip-text
              text-3xl sm:text-4xl md:text-5xl lg:text-6xl
              bg-gradient-to-r from-purple-400 to-pink-600
              text-center"> <!-- Titulo -->
 
-        Blog Bloguistico
+      Blog Bloguistico
 
     </div>
 
