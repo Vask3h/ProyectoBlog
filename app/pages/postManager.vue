@@ -11,11 +11,20 @@ const user = ref(null)
 const isAdmin = ref(false)
 
 onMounted(() => {
+
   const stored = localStorage.getItem("currentUser")
 
-  if (isAdmin.value = user.value.role === "user") {
-    navigateTo("/")
+  if (!stored) {
+    router.push("/login")
+    return
   }
+
+  const user = JSON.parse(stored)
+
+  if (user.role !== "admin") {
+    router.push("/")
+  }
+
 })
 
 </script>
