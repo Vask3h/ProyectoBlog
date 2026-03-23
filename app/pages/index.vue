@@ -12,23 +12,34 @@ onMounted(loadPosts)
 
 onMounted(loguedIn)
 
+const user = ref(null)
+const isAdmin = ref(false)
+
+onMounted(() => {
+  const stored = localStorage.getItem("currentUser")
+
+  if (stored) {
+    user.value = JSON.parse(stored)
+    isAdmin.value = user.value.role === "admin"
+  }
+})
 
 </script>
 <template>
   <Navbar/>
   <div class=" min-h-screen  bg-gray-800 text-white p-4 "> <!-- Contenedor principal pantalla completa -->
-    <div class="font-bold text-transparent bg-clip-text
-             text-3xl sm:text-4xl md:text-5xl lg:text-6xl
-             bg-gradient-to-r from-purple-400 to-pink-600
-             text-center"> <!-- Titulo -->
-
-      Blog Bloguistico
-
-    </div>
+    <h1 class="font-bold text-transparent bg-clip-text
+           text-3xl sm:text-4xl md:text-5xl lg:text-6xl
+           bg-gradient-to-r from-purple-400 to-pink-600
+           text-center ">
+      Blog Bloquistico
+    </h1>
 
     <div class="w-full flex justify-center gap-10 p-2 ">
+
       <nuxt-link to="postManager">
         <buttons
+            v-if="isAdmin"
             buttonName="Gestor de Publicaciones"
         />
       </nuxt-link>

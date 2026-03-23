@@ -7,6 +7,17 @@ const { posts, loadPosts, deletePost } = usePosts()
 
 onMounted(loadPosts)
 
+const user = ref(null)
+const isAdmin = ref(false)
+
+onMounted(() => {
+  const stored = localStorage.getItem("currentUser")
+
+  if (isAdmin.value = user.value.role === "user") {
+    navigateTo("/")
+  }
+})
+
 </script>
 <template>
   <Navbar/>

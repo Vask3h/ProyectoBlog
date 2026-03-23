@@ -75,5 +75,4 @@ export function checkLogin() {
     return {
         loguedIn
     }
-
 }
