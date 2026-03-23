@@ -7,11 +7,17 @@ const user = ref(null)
 export function usePosts() {
 
     function loadPosts() {
-        const data = localStorage.getItem("blogs")
 
-        if (data) {
-            posts.value = JSON.parse(data)
+        if (process.client) {
+
+            const data = localStorage.getItem("blogs")
+
+            if (data) {
+                posts.value = JSON.parse(data)
+            }
+
         }
+
     }
 
     function savePosts() {
