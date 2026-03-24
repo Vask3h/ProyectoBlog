@@ -22,6 +22,7 @@ export function usePosts() {
 
     function savePosts() {
         localStorage.setItem("blogs", JSON.stringify(posts.value))
+
     }
 
     function createPost(form: any) {

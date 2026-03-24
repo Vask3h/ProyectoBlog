@@ -1,21 +1,17 @@
 <script setup lang="ts">
-
-import {reactive} from "vue"
-import {usePosts} from "~/composables/usePosts"
-import {useRouter} from "vue-router"
-import Navbar from "~/components/Navbar.vue";
+import { reactive, ref, onMounted } from "vue"
+import { usePosts } from "~/composables/usePosts"
+import { useRouter } from "vue-router"
+import Navbar from "~/components/Navbar.vue"
 
 const router = useRouter()
-const {createPost} = usePosts()
+const { createPost } = usePosts()
 
 function getTodayInputDate() {
-
   const today = new Date()
-
   const year = today.getFullYear()
   const month = String(today.getMonth() + 1).padStart(2, "0")
   const day = String(today.getDate()).padStart(2, "0")
-
   return `${year}-${month}-${day}`
 }
 
@@ -23,7 +19,8 @@ const form = reactive({
   titulo: "",
   fecha: getTodayInputDate(),
   cuerpo: "",
-  linkImagen: ""
+  linkImagen: "",
+  imageUrl: ""
 })
 
 function isValidImageUrl(url: string) {
@@ -32,8 +29,6 @@ function isValidImageUrl(url: string) {
 }
 
 async function publishPost() {
-
-
   if (!form.titulo.trim() || !form.cuerpo.trim()) {
     alert("El título y el contenido no pueden estar vacíos")
     return
@@ -49,30 +44,18 @@ async function publishPost() {
     return
   }
 
-
   if (form.imageUrl) {
-
     if (!isValidImageUrl(form.imageUrl)) {
-      alert("La URL no es válida")
+      alert("La URL no es válida o no es una imagen válida")
       return
     }
-
-    if (!isValidImageUrl(form.imageUrl)) {
-      alert("La URL no es una imagen válida")
-      return
-    }
-
     form.linkImagen = form.imageUrl
   }
 
   try {
     await createPost(form)
-
     alert("Post creado exitosamente")
-
-
     router.push("/")
-
   } catch (error) {
     console.error(error)
     alert("Error al crear el post")
@@ -80,22 +63,23 @@ async function publishPost() {
 }
 
 function handleImage(event: any) {
-
   const file = event.target.files[0]
-
   if (!file) return
 
-  const reader = new FileReader()
+  form.imageUrl = ""
 
+  const reader = new FileReader()
   reader.onload = (e: any) => {
     form.linkImagen = e.target.result
-    form.imageUrl = ""
   }
-
   reader.readAsDataURL(file)
-
 }
 
+function handleUrlInput() {
+  if (form.imageUrl) {
+    form.linkImagen = ""
+  }
+}
 
 const user = ref(null)
 const isAdmin = ref(false)
@@ -103,8 +87,20 @@ const isAdmin = ref(false)
 onMounted(() => {
   const stored = localStorage.getItem("currentUser")
 
-  if (isAdmin.value = user.value.role === "user") {
-    navigateTo("/")
+  if (stored) {
+    try {
+      user.value = JSON.parse(stored)
+      isAdmin.value = user.value.role === "admin"
+
+      if (!isAdmin.value) {
+        router.push("/")
+      }
+    } catch (error) {
+      console.error("Error parsing user data", error)
+      router.push("/login")
+    }
+  } else {
+    router.push("/login")
   }
 })
 </script>
@@ -164,9 +160,9 @@ onMounted(() => {
 
         />
 
-        <div v-if="form.linkImagen || (form.imageUrl && isValidImageUrl(form.imageUrl))" class="mt-4">
+        <div v-if="form.linkImagen" class="mt-4">
           <img
-              :src="form.linkImagen || form.imageUrl"
+              :src="form.imageUrl || form.linkImagen"
               class="w-full h-60 object-cover rounded-lg"
           />
         </div>

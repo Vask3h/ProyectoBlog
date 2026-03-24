@@ -1,5 +1,13 @@
 <script setup lang="ts">
 
+/* En Caso de liarla con el local storage
+onMounted(() => {
+  if (process.client) {
+    localStorage.clear();
+  }
+});
+*/
+
 import {usePosts} from "~/composables/usePosts"
 import Navbar from "~/components/Navbar.vue";
 import {checkLogin} from "~/composables/usePosts";
