@@ -12,21 +12,30 @@ import { onMounted, ref } from "vue"
 import { usePosts, useAuth } from "~/composables/usePosts"
 import Navbar from "~/components/Navbar.vue";
 
+const router = useRouter()
 const { posts, loadPosts, deletePost } = usePosts()
-const { getCurrentUser } = useAuth()
 
+
+const { isAdmin, getCurrentUser, isLoggedIn } = useAuth()
 const user = ref(null)
-const isAdmin = ref(false)
+
 
 onMounted(() => {
-  loadPosts()
 
+  if (!isLoggedIn()) {
+
+    router.push("/login")
+    return
+  }
   const stored = getCurrentUser()
   if (stored) {
     user.value = stored
-    isAdmin.value = user.value.role === "admin"
   }
+
+  loadPosts()
 })
+
+
 
 </script>
 
