@@ -8,31 +8,28 @@ onMounted(() => {
 });
 */
 
-import {usePosts} from "~/composables/usePosts"
+import { onMounted, ref } from "vue"
+import { usePosts, useAuth } from "~/composables/usePosts"
 import Navbar from "~/components/Navbar.vue";
-import {checkLogin} from "~/composables/usePosts";
 
-const {posts, loadPosts, deletePost} = usePosts()
-const {loguedIn} = checkLogin()
-
-
-onMounted(loadPosts)
-
-onMounted(loguedIn)
+const { posts, loadPosts, deletePost } = usePosts()
+const { getCurrentUser } = useAuth()
 
 const user = ref(null)
 const isAdmin = ref(false)
 
 onMounted(() => {
-  const stored = localStorage.getItem("currentUser")
+  loadPosts()
 
+  const stored = getCurrentUser()
   if (stored) {
-    user.value = JSON.parse(stored)
+    user.value = stored
     isAdmin.value = user.value.role === "admin"
   }
 })
 
 </script>
+
 <template>
   <Navbar/>
   <div class=" min-h-screen  bg-gray-800 text-white p-4 "> <!-- Contenedor principal pantalla completa -->
