@@ -17,9 +17,22 @@ onMounted(() => {
 <navbar/>
   <div class="min-h-screen bg-gray-800 text-white px-4 py-6">
 
-    <h1 class="text-2xl sm:text-3xl font-bold text-center mb-6">
-      Catálogo
+    <h1 class="font-bold text-transparent bg-clip-text
+           text-3xl sm:text-4xl md:text-5xl lg:text-6xl
+           bg-gradient-to-r from-purple-400 to-pink-600
+           text-center ">
+      Catalogo
     </h1>
+    <div class="w-full flex justify-center gap-10 p-2 ">
+
+      <nuxt-link to="productCreator">
+        <buttons
+            v-if="isAdmin"
+            buttonName="Crear productos"
+        />
+      </nuxt-link>
+
+    </div>
 
     <div class="flex flex-wrap justify-center gap-6">
 
@@ -48,22 +61,22 @@ onMounted(() => {
             {{ p.precio }} €
           </p>
 
-          <div class="mt-auto flex flex-col gap-2">
+          <div class="mt-auto flex  gap-2">
 
-            <button
+            <buttons
+                buttonName="Añadir al carro"
                 @click="addToCart(p)"
-                class="bg-blue-500 hover:bg-blue-600 p-2 rounded font-bold"
             >
-              Añadir al carrito
-            </button>
 
-            <button
+            </buttons>
+
+            <buttons
                 v-if="isAdmin()"
                 @click="deleteProduct(p.id)"
-                class="bg-red-500 hover:bg-red-600 p-2 rounded font-bold"
+                buttonName="Eliminar Prod"
             >
-              Eliminar
-            </button>
+
+            </buttons>
 
           </div>
 

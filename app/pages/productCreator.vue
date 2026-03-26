@@ -82,6 +82,7 @@ function handleSubmit() {
   if (!success) return
 
   alert("Producto creado correctamente")
+  navigateTo("/catalogo")
 
 
   form.value = {
@@ -95,42 +96,37 @@ function handleSubmit() {
 </script>
 
 <template>
-
-  <div class="min-h-screen bg-gray-800 text-white px-4 py-6 flex justify-center">
+<navbar/>
+  <div class= "min-h-screen bg-gray-800 text-white flex flex-col items-center px-4 sm:px-6 lg:px-10 py-6">
 
     <div class="w-full sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%]
-              bg-gray-900 p-6 rounded-xl shadow-lg flex flex-col gap-4">
+              bg-gray-900 p-6 rounded-xl shadow-lg flex flex-col gap-2">
 
       <h1 class="text-2xl sm:text-3xl font-bold text-center">
-        Crear Producto
+        Creador Producto
       </h1>
 
-      <input
+      <inputs
           v-model="form.nombre"
-          type="text"
-          placeholder="Nombre del producto"
-          class="w-full p-3 rounded-lg text-black"
+          text-label="Nombre del producto"
       />
 
-      <input
+      <inputs
           v-model="form.precio"
-          type="number"
-          placeholder="Precio (€)"
-          class="w-full p-3 rounded-lg text-black"
+          text-label="Precio (€)"
       />
 
-      <input
+      <inputs
           v-model="form.imageUrl"
           type="text"
-          placeholder="URL de la imagen"
-          class="w-full p-3 rounded-lg text-black"
+          text-label="URL de la imagen"
       />
 
       <input
           type="file"
           accept="image/*"
           @change="e => form.imageFile = e.target.files[0]"
-          class="w-full p-2 bg-white text-black rounded-lg"
+          class="border-4 border-emerald-200 bg-emerald-200 rounded-lg text-black mt-7"
       />
 
       <div v-if="previewImage" class="w-full h-48 overflow-hidden rounded-lg">
@@ -140,13 +136,21 @@ function handleSubmit() {
         />
       </div>
 
-      <button
-          @click="handleSubmit"
-          class="w-full bg-emerald-500 hover:bg-emerald-600 transition
-             p-3 rounded-lg font-bold"
-      >
-        Crear Producto
-      </button>
+      <div class="w-full flex  gap-2" >
+        <buttons
+            @click="handleSubmit"
+            buttonName="Crear Producto"
+
+        >
+
+        </buttons>
+        <nuxt-link to="catalogo">
+          <buttons
+              buttonName="Cancelar"
+          />
+        </nuxt-link>
+      </div>
+
 
     </div>
 

@@ -20,8 +20,10 @@ function handleLogout() {
       </nuxt-link>
 
       <nuxt-link to="/catalogo" class="hover:text-purple-400 font-bold">
-        Catálogo
+        Tienda
       </nuxt-link>
+
+
 
     </div>
     <div class="flex items-center gap-4">

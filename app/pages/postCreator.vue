@@ -121,7 +121,8 @@ onMounted(() => {
 
     </div>
 
-    <div class=" lg:w-[50%]">
+    <div class="w-full sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%]
+              bg-gray-900 p-6 rounded-xl shadow-lg flex flex-col gap-2">
       <form class="flex flex-col  w-full" id="formPost" @submit.prevent>
         <div class="w-full flex justify-center gap-10 ">
 
@@ -173,7 +174,7 @@ onMounted(() => {
             v-model="form.cuerpo"
         />
       </form>
-    </div>
+ </div>
 
   </div>
 </template>
