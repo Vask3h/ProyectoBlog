@@ -23,6 +23,7 @@ onMounted(() => {
            text-center ">
       Catalogo
     </h1>
+
     <div class="w-full flex justify-center gap-10 p-2 ">
 
       <nuxt-link to="productCreator">

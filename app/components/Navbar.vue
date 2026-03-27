@@ -22,6 +22,9 @@ function handleLogout() {
       <nuxt-link to="/catalogo" class="hover:text-purple-400 font-bold">
         Tienda
       </nuxt-link>
+      <nuxt-link to="/cart" class="hover:text-purple-400 font-bold">
+        Carrito
+      </nuxt-link>
 
 
 

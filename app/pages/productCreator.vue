@@ -1,11 +1,11 @@
 <script setup>
 
-import { ref, computed, onMounted } from "vue"
-import { useCatalog } from "~/composables/useCatalog"
-import { useAuth } from "~/composables/usePosts"
+import {ref, computed, onMounted} from "vue"
+import {useCatalog} from "~/composables/useCatalog"
+import {useAuth} from "~/composables/usePosts"
 
-const { createProduct } = useCatalog()
-const { isAdmin } = useAuth()
+const {createProduct} = useCatalog()
+const {isAdmin} = useAuth()
 
 const form = ref({
   nombre: "",
@@ -38,7 +38,17 @@ const previewImage = computed(() => {
   return null
 })
 
-function handleSubmit() {
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = error => reject(error)
+  })
+}
+
+async function handleSubmit() {
 
   if (!form.value.nombre.trim()) {
     alert("El nombre no puede estar vacío")
@@ -65,25 +75,28 @@ function handleSubmit() {
     return
   }
 
+  if (form.value.imageFile && form.value.imageFile.size > 2 * 1024 * 1024) {
+    alert("La imagen es demasiado grande (máx 2MB)")
+    return
+  }
+
   let finalImage = ""
 
   if (form.value.imageFile) {
-    finalImage = URL.createObjectURL(form.value.imageFile)
+    finalImage = await fileToBase64(form.value.imageFile)
   } else {
     finalImage = form.value.imageUrl
   }
 
   const success = createProduct({
     nombre: form.value.nombre,
-    precio: form.value.precio,
+    precio: Number(form.value.precio),
     imagen: finalImage
   })
 
   if (!success) return
 
   alert("Producto creado correctamente")
-  navigateTo("/catalogo")
-
 
   form.value = {
     nombre: "",
@@ -96,8 +109,8 @@ function handleSubmit() {
 </script>
 
 <template>
-<navbar/>
-  <div class= "min-h-screen bg-gray-800 text-white flex flex-col items-center px-4 sm:px-6 lg:px-10 py-6">
+  <navbar/>
+  <div class="min-h-screen bg-gray-800 text-white flex flex-col items-center px-4 sm:px-6 lg:px-10 py-6">
 
     <div class="w-full sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%]
               bg-gray-900 p-6 rounded-xl shadow-lg flex flex-col gap-2">
@@ -136,7 +149,7 @@ function handleSubmit() {
         />
       </div>
 
-      <div class="w-full flex  gap-2" >
+      <div class="w-full flex  gap-2">
         <buttons
             @click="handleSubmit"
             buttonName="Crear Producto"
