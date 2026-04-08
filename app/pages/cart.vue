@@ -1,11 +1,48 @@
 <script setup>
-import { useCatalog } from "~/composables/useCatalog"
+import {useCatalog} from "~/composables/useCatalog"
 
-const { cart, removeFromCart, getTotal } = useCatalog()
+const {cart, removeFromCart, getTotal} = useCatalog()
+
+const ticket = ref(null)
+
+function generateTicket() {
+
+  if (cart.value.length === 0) {
+    alert("El carrito está vacío")
+    return
+  }
+
+  const date = new Date().toLocaleDateString("es-ES", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  })
+
+  const items = cart.value.map(item => ({
+    id: item.id,
+    nombre: item.nombre,
+    cantidad: item.cantidad,
+    precio: item.precio,
+    total: item.precio * item.cantidad
+  }))
+
+  const total = getTotal()
+
+  ticket.value = {
+    id: crypto.randomUUID(),
+    date,
+    items,
+    total
+  }
+
+  // 🧹 Vaciar carrito
+  cart.value = []
+}
+
 </script>
 
 <template>
-<navbar/>
+  <navbar/>
   <div class="min-h-screen bg-gray-800 text-white px-4 py-6">
 
     <h1 class="text-2xl sm:text-3xl font-bold text-center mb-6">
@@ -71,6 +108,49 @@ const { cart, removeFromCart, getTotal } = useCatalog()
 
       <div class="text-right mt-6 text-xl font-bold">
         Total: {{ getTotal() }} €
+      </div>
+      <div class="flex justify-end mt-4">
+        <buttons
+            @click="generateTicket"
+            buttonName="Comprar"
+        >
+        </buttons>
+
+      </div>
+    </div>
+    <div v-if="ticket" class="max-w-2xl mx-auto mt-8 bg-white text-black p-6 rounded-xl shadow-lg">
+
+      <h2 class="text-xl font-bold mb-2">
+        Ticket de compra
+      </h2>
+
+      <p class="text-gray-600 mb-4">
+        {{ ticket.date }}
+      </p>
+
+      <div class="flex flex-col gap-2">
+
+        <div
+            v-for="item in ticket.items"
+            :key="item.id"
+            class="flex justify-between"
+        >
+      <span>
+        {{ item.nombre }} x{{ item.cantidad }}
+      </span>
+
+          <span>
+        {{ item.total }} €
+      </span>
+        </div>
+
+      </div>
+
+      <hr class="my-4"/>
+
+      <div class="flex justify-between font-bold text-lg">
+        <span>Total</span>
+        <span>{{ ticket.total }} €</span>
       </div>
 
     </div>
