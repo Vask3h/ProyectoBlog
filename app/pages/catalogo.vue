@@ -1,11 +1,32 @@
 <script setup>
 
-import { onMounted } from "vue"
+import {onMounted, ref} from "vue"
 import { useCatalog } from "~/composables/useCatalog"
 import { useAuth } from "~/composables/usePosts"
 
 const { products, loadProducts, addToCart, deleteProduct } = useCatalog()
-const { isAdmin } = useAuth()
+
+const router = useRouter()
+
+const { isAdmin, getCurrentUser, isLoggedIn } = useAuth()
+const user = ref(null)
+
+
+onMounted(() => {
+
+  if (!isLoggedIn()) {
+
+    router.push("/login")
+    return
+  }
+  const stored = getCurrentUser()
+  if (stored) {
+    user.value = stored
+  }
+
+  loadPosts()
+})
+
 
 onMounted(() => {
   loadProducts()

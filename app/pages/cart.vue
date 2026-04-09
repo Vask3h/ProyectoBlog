@@ -1,8 +1,29 @@
 <script setup>
 import {useCatalog} from "~/composables/useCatalog"
+import {useAuth} from "~/composables/usePosts.ts";
+import {onMounted, ref} from "vue";
 
 const {cart, removeFromCart, getTotal} = useCatalog()
+const router = useRouter()
 
+const { isAdmin, getCurrentUser, isLoggedIn } = useAuth()
+const user = ref(null)
+
+
+onMounted(() => {
+
+  if (!isLoggedIn()) {
+
+    router.push("/login")
+    return
+  }
+  const stored = getCurrentUser()
+  if (stored) {
+    user.value = stored
+  }
+
+  loadPosts()
+})
 const ticket = ref(null)
 
 function generateTicket() {
