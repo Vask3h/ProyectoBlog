@@ -1,12 +1,13 @@
 <script setup>
 import {useCatalog} from "~/composables/useCatalog"
-import {useAuth} from "~/composables/usePosts.ts";
+import {useAuth, usePosts} from "~/composables/usePosts.ts";
 import {onMounted, ref} from "vue";
 
 const {cart, removeFromCart, getTotal} = useCatalog()
 const router = useRouter()
+const {posts, loadPosts, deletePost} = usePosts()
 
-const { isAdmin, getCurrentUser, isLoggedIn } = useAuth()
+const {isAdmin, getCurrentUser, isLoggedIn} = useAuth()
 const user = ref(null)
 
 
@@ -33,11 +34,12 @@ function generateTicket() {
     return
   }
 
-  const date = new Date().toLocaleDateString("es-ES", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric"
-  })
+  const date = process.client
+      ? new Date().toLocaleDateString("es-ES", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      }) : ""
 
   const items = cart.value.map(item => ({
     id: item.id,
@@ -50,13 +52,12 @@ function generateTicket() {
   const total = getTotal()
 
   ticket.value = {
-    id: crypto.randomUUID(),
+    id: process.client ? crypto.randomUUID() : "",
     date,
     items,
     total
   }
 
-  // 🧹 Vaciar carrito
   cart.value = []
 }
 

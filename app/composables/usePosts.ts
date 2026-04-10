@@ -5,34 +5,33 @@ const posts = ref<any[]>([])
 const POSTS_KEY = "blogs"
 
 export function usePosts() {
-    const {get, set} = useDatabase()
+    const { get, set } = useDatabase()
+
+    const posts = ref([])
 
     function loadPosts() {
-        const data = get(POSTS_KEY)
-        if (data) {
-            posts.value = data
-        } else {
-            posts.value = []
+        if (process.client) { // 👈 CLAVE
+            const data = get(POSTS_KEY)
+            posts.value = data || []
         }
     }
 
     function savePosts() {
-        set(POSTS_KEY, posts.value)
+        if (process.client) {
+            set(POSTS_KEY, posts.value)
+        }
     }
 
-    function createPost(form: any) {
-
+    function createPost(form) {
         if (!form.titulo?.trim() || !form.cuerpo?.trim()) {
             alert("El título y el contenido no pueden estar vacíos")
             return false
         }
 
-
         if (!form.linkImagen) {
             alert("Debes subir una imagen o introducir una URL")
             return false
         }
-
 
         const newPost = {
             ...form,
@@ -43,30 +42,25 @@ export function usePosts() {
         posts.value.unshift(newPost)
         savePosts()
 
-        console.log("Post creado exitosamente:", newPost) // Debug
-
         return true
     }
 
-    function deletePost(id: string) {
+    function deletePost(id) {
         posts.value = posts.value.filter(post => post.id !== id)
         savePosts()
     }
 
-    function updatePost(updatedPost: any) {
+    function updatePost(updatedPost) {
         const index = posts.value.findIndex(post => post.id === updatedPost.id)
         if (index !== -1) {
-            posts.value[index] = {...posts.value[index], ...updatedPost}
+            posts.value[index] = { ...posts.value[index], ...updatedPost }
             savePosts()
         }
     }
 
-    function getPostById(id: string) {
+    function getPostById(id) {
         return posts.value.find(post => post.id === id)
     }
-
-
-    loadPosts()
 
     return {
         posts,

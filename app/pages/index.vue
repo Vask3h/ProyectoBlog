@@ -49,18 +49,20 @@ onMounted(() => {
       Blog Bloquistico
     </h1>
 
-    <div class="w-full flex justify-center gap-10 p-2 ">
+    <div  v-if="isAdmin" class="w-full flex justify-center gap-10 p-2 ">
 
-      <nuxt-link to="postManager">
-        <buttons
-            v-if="isAdmin"
-            buttonName="Gestor de Publicaciones"
-        />
+      <nuxt-link  to="postManager">
+
+          <buttons
+              buttonName="Gestor de Publicaciones"
+          />
+
+
       </nuxt-link>
 
     </div>
 
-    <div class="flex flex-wrap justify-center items-stretch gap-6 p-6">
+    <div  v-if="posts && posts.length" class="flex flex-wrap justify-center items-stretch gap-6 p-6">
 
       <div v-for="post in posts" :key="post.id" class=" rounded p-2">
         <NuxtLink :to="`/post/${post.id}`">

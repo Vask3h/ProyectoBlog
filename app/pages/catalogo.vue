@@ -2,9 +2,12 @@
 
 import {onMounted, ref} from "vue"
 import { useCatalog } from "~/composables/useCatalog"
-import { useAuth } from "~/composables/usePosts"
+import {useAuth, usePosts} from "~/composables/usePosts"
+import { useRouter } from "vue-router"
 
 const { products, loadProducts, addToCart, deleteProduct } = useCatalog()
+const { posts, loadPosts, deletePost } = usePosts()
+
 
 const router = useRouter()
 
@@ -15,27 +18,23 @@ const user = ref(null)
 onMounted(() => {
 
   if (!isLoggedIn()) {
-
     router.push("/login")
     return
   }
+
   const stored = getCurrentUser()
   if (stored) {
     user.value = stored
   }
 
   loadPosts()
-})
-
-
-onMounted(() => {
   loadProducts()
 })
 
 </script>
 
 <template>
-<navbar/>
+<Navbar/>
   <div class="min-h-screen bg-gray-800 text-white px-4 py-6">
 
     <h1 class="font-bold text-transparent bg-clip-text

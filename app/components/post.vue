@@ -53,15 +53,13 @@ export default {
       <p class="line-clamp-3">{{ body }}</p>
     </div>
 
-    <div class="flex gap-5 p-1">
+    <div v-if="postManager" class="flex gap-5 p-1">
       <buttons
-          v-if="postManager"
           buttonName="Eliminar"
           @click="$emit('delete', id)"
       />
 
       <NuxtLink
-          v-if="postManager"
           :to="`/postEditor?id=${id}`"
       >
         <Buttons buttonName="Editar"/>

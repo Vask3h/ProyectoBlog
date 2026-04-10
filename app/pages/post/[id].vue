@@ -9,7 +9,10 @@ const route = useRoute()
 
 const { posts, loadPosts } = usePosts()
 
-loadPosts()
+onMounted(() => {
+  loadPosts()
+})
+
 
 const post = computed(() => {
   return posts.value.find(p => p.id === route.params.id)

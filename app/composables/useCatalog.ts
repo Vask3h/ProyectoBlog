@@ -1,4 +1,4 @@
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import { useDatabase } from "./useDatabase"
 
 const PRODUCTS_KEY = "products"
@@ -12,11 +12,13 @@ export function useCatalog() {
     const { get, set } = useDatabase()
 
     function loadProducts() {
+        if (process.server) return
         const data = get(PRODUCTS_KEY)
         products.value = data || []
     }
 
     function saveProducts() {
+        if (process.server) return
         set(PRODUCTS_KEY, products.value)
     }
 
@@ -34,7 +36,7 @@ export function useCatalog() {
 
         const newProduct = {
             ...product,
-            id: crypto.randomUUID(),
+            id: process.client ? crypto.randomUUID() : "", // ✅ FIX
             precio: Number(product.precio)
         }
 
@@ -50,11 +52,13 @@ export function useCatalog() {
     }
 
     function loadCart() {
+        if (process.server) return
         const data = get(CART_KEY)
         cart.value = data || []
     }
 
     function saveCart() {
+        if (process.server) return
         set(CART_KEY, cart.value)
     }
 
@@ -85,9 +89,10 @@ export function useCatalog() {
         }, 0)
     }
 
-
-    loadProducts()
-    loadCart()
+    onMounted(() => {
+        loadProducts()
+        loadCart()
+    })
 
     return {
         products,

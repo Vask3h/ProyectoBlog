@@ -4,7 +4,7 @@ import { usePosts } from "~/composables/usePosts"
 import Navbar from "~/components/Navbar.vue";
 
 const { posts, loadPosts, deletePost } = usePosts()
-
+const router = useRouter()
 onMounted(loadPosts)
 
 const user = ref(null)
